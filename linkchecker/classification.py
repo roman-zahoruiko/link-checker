@@ -6,7 +6,7 @@ import socket
 
 
 def check_scheme(url_to_check):
-    """ Check for http(s) scheme, add http if not scheme """
+    """ Check for http(s) scheme, add "http" if not """
     url_parsed = urllib.parse.urlparse(url_to_check)
     if not url_parsed.scheme:
         url_parsed = url_parsed._replace(scheme='http')
