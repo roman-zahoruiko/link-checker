@@ -1,7 +1,7 @@
 # link-checker
 Link-checker – Test Project
 <br/>
-**This script accept URL and make validity checks:**
+**This script takes URL and make validity checks:**
 1. Classification validation
 2. Robots.txt validation
 3. Content validation
