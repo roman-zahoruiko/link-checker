@@ -6,7 +6,7 @@ parser = argparse.ArgumentParser(
     prog='link-checker-cli.py', description="This script accept URL and make validity checks."
 )
 parser.add_argument('-url', '--url', type=str, help="URL to check", required=True)
-parser.add_argument('-log', '--log', action='store_true', help="File with strings to count", required=False)
+parser.add_argument('-log', '--log', action='store_true', help="Show log", required=False)
 args = parser.parse_args()
 
 if __name__ == '__main__':
