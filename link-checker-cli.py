@@ -15,7 +15,7 @@ if __name__ == '__main__':
     else:
         lc = LinkChecker(args.url)
     result = []
-    lc.check_scheme()
+    lc.check_url()
     result.append(lc.check_availability())
     if lc.url_available:
         result.append(lc.check_robots())

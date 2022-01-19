@@ -13,22 +13,23 @@ class LinkChecker:
         self.log = log
         self.message = '...log:'
         self.url_available = False
-        if self.url_parsed.netloc and self.url_parsed.path:
-            self.url_parsed = self.url_parsed._replace(path='')
-            self.url_to_check = urllib.parse.urlunparse(self.url_parsed)
-            if self.log:
-                print(self.message, "URL path cleaned!")
 
-    def check_scheme(self):
-        """ Check for http(s) scheme, add "http" if not """
+    def check_url(self):
+        """ Check for http(s) scheme, add "http" if not. Clear url's path if provided. """
         if not self.url_parsed.scheme:
             self.url_parsed = self.url_parsed._replace(scheme='http')
             if self.log:
                 print(self.message, "The protocol is not provided (http or https), fall-back to http!")
-            if not self.url_parsed.netloc:
-                failed_netloc = self.url_parsed.path  # To avoid "///" without given "//" in uri
-                self.url_parsed = self.url_parsed._replace(netloc=failed_netloc, path='')
-            self.url_to_check = urllib.parse.urlunparse(self.url_parsed)
+        if self.url_parsed.netloc and self.url_parsed.path:
+            self.url_parsed = self.url_parsed._replace(path='')
+            if self.log:
+                print(self.message, "URL path cleaned!")
+        elif not self.url_parsed.netloc:
+            failed_netloc = self.url_parsed.path.split('/', 1)[0]  # To avoid "///" without given "//" in uri and clear
+            if len(self.url_parsed.path.split('/', 1)) > 1 and self.log:
+                print(self.message, "URL path cleaned!")
+            self.url_parsed = self.url_parsed._replace(netloc=failed_netloc, path='')
+        self.url_to_check = urllib.parse.urlunparse(self.url_parsed)
         return self.url_to_check
 
     def check_availability(self):
@@ -93,7 +94,7 @@ class LinkChecker:
 
 if __name__ == '__main__':
     link = LinkChecker('konstankino.com', log=True)
-    print(link.check_scheme())
+    print(link.check_url())
     print(link.check_availability())
     print(link.url_available)
     print(link.check_robots())
