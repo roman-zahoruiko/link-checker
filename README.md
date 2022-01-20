@@ -8,12 +8,12 @@ Link-checker – Test Project
 
 **Usage:** link-checker-cli.py [-h] -url URL [-log]
 
-**Sample usage:** python link-checker-cli.py -url konstankino.com
+**Sample usage:** python link-checker-cli.py -url habr.com
 <br/>
 **Sample result:**
 <br/>
 [(True, 'the website redirects to https'),<br/>
- (True, 'the website accepts robots'),<br/>
+ (False, 'the website rejects robots'),<br/>
  (True, 'the website is not parked')]
 
 

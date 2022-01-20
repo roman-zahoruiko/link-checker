@@ -67,7 +67,7 @@ class LinkChecker:
         robot_parser = urllib.robotparser.RobotFileParser()
         robot_parser.set_url(url_to_check)
         robot_parser.read()
-        if 'Disallow' in str(robot_parser):  # Not the best check, but it matches the task verbatim
+        if 'Disallow' in str(robot_parser):  # Checking reject any robots
             return False, 'the website rejects robots'
         elif not str(robot_parser) or robot_parser.can_fetch("*", url_to_check):
             return True, 'the website accepts robots'
@@ -87,13 +87,13 @@ class LinkChecker:
         if self.log:
             print(self.message, 'Markers of parked domain found:', dict(zip(keywords, keywords_in)))
         if keywords_in[0] or keywords_in[1] or keywords_in[2] and keywords_in[4] or keywords_in[3] and keywords_in[4]:
-            return False, 'the website is parked'
+            return False, 'the website is probably parked'
         else:
             return True, 'the website is not parked'
 
 
 if __name__ == '__main__':
-    link = LinkChecker('konstankino.com', log=True)
+    link = LinkChecker('google.com', log=True)
     print(link.check_url())
     print(link.check_availability())
     print(link.url_available)
